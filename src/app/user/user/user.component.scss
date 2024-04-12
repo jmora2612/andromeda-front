@@ -1,0 +1,50 @@
+.container {
+    width: 100%;
+    display: grid;
+    height: 100%;
+    border: 0px solid black;
+    grid-template-rows: 8% 1fr;
+    .navbar {
+      background-color: black;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding-right: 20px;
+    }
+    .content {
+      display: grid;
+      grid-template-rows: 100%;
+      padding: 20px;
+      height: auto;
+      width: 50%;
+      align-items: center;
+      margin: 0px auto;
+    }
+    .form-container {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 20px;
+    }
+  
+    .form-row {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-row.full-width {
+      grid-column: span 2;
+    }
+    
+    .form-row.full-width > * {
+      width: 100%;
+    }
+  
+    .error-special{
+      display: grid;
+    }
+    
+    .phone-errors {
+      margin-top: 25px;
+    }
+  }

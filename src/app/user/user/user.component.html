@@ -1,0 +1,140 @@
+<div class="container animate__animated animate__fadeIn">
+  <header class="navbar">
+    <button mat-flat-button class="navbarButton" (click)="logout()">
+      Logout<mat-icon>logout</mat-icon>
+    </button>
+  </header>
+
+  <div class="content">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Crear usuario</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="addForm" class="form-container" (submit)="onSubmit()">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Ingresar nombre"
+              formControlName="name"
+            />
+            <mat-error
+              *ngIf="
+                addForm.get('name')?.invalid &&
+                (addForm.get('name')?.dirty ||
+                  addForm.get('name')?.touched)
+              "
+            >
+              Ingrese un nombre
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Correo</mat-label>
+            <input
+              matInput
+              type="email"
+              placeholder="Ingresar correo"
+              formControlName="email"
+            />
+            <mat-error
+              *ngIf="
+                addForm.get('email')?.invalid &&
+                (addForm.get('email')?.dirty ||
+                  addForm.get('email')?.touched)
+              "
+            >
+              Ingrese un correo
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" *ngIf="!userId">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Ingresar contraseña"
+              formControlName="password"
+              [type]="hidePassword ? 'password' : 'text'"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="
+                addForm.get('password')?.invalid &&
+                (addForm.get('password')?.dirty ||
+                  addForm.get('password')?.touched)
+              "
+            >
+              Ingrese una contraseña
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" [ngClass]="{'form-row full-width': userId}" >
+            <mat-label>Teléfono</mat-label>
+            <input
+              matInput
+              type="tel"
+              placeholder="Ingresar teléfono"
+              formControlName="phone"
+            />
+            <mat-error
+              class="error-special"
+              *ngIf="
+                addForm.get('phone')?.invalid &&
+                (addForm.get('phone')?.dirty ||
+                  addForm.get('phone')?.touched)
+              "
+            >
+              <span *ngIf="addForm.get('phone')?.hasError('required')">
+                El teléfono es obligatorio
+              </span>
+              <span *ngIf="addForm.get('phone')?.hasError('pattern')">
+                El teléfono debe contener solo números
+              </span>
+              <span *ngIf="addForm.get('phone')?.hasError('minlength')">
+                El teléfono debe tener al menos 11 dígitos
+              </span>
+              <span *ngIf="addForm.get('phone')?.hasError('maxlength')">
+                El teléfono no puede tener más de 11 dígitos
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <div class="form-row full-width">
+            <button
+              [ngClass]="{
+                'phone-errors':
+                  addForm.get('phone')?.invalid &&
+                  (addForm.get('phone')?.dirty ||
+                    addForm.get('phone')?.touched)
+              }"
+              mat-raised-button
+              color="primary"
+              [disabled]="addForm.invalid"
+            >
+              Guardar
+            </button>
+          </div>
+          <div class="form-row full-width">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="back()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
